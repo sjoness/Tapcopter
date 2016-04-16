@@ -5,11 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.p12202749.tapcopter.R;
+import com.example.p12202749.tapcopter.game.objects.Helicopter;
 import com.example.p12202749.tapcopter.utils.Background;
 
 /**
@@ -17,9 +17,11 @@ import com.example.p12202749.tapcopter.utils.Background;
  */
 public class GameSurfaceView extends SurfaceView implements Runnable {
 
-    private final static int MAX_FPS = 60;                   // desired fps
+    private final static int MAX_FPS = 30;                   // desired fps
     private final static int MAX_FRAME_SKIPS = 5;            // maximum number of frames to be skipped
     private final static int FRAME_PERIOD = 1000 / MAX_FPS;  // the frame period
+    public final static int MOVE_SPEED = 0;                // the speed of the player
+    private final Helicopter helicopter;
 
     SurfaceHolder holder;                                       //Surface holder for the canvas
     private boolean ok = false;                                 //Boolean to control pause and resume
@@ -40,16 +42,22 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         super(context);
         holder = getHolder(); //Used for the screenview
         screenSize = screenS;
+
+        // Create an instance of the Background class to draw on the canvas
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.game_view_bg), screenSize);
-        bg.setVector(-5);
+        helicopter = new Helicopter(BitmapFactory.decodeResource(getResources(), R.drawable.helicopter), 66, 25, 3, screenSize);
     }
 
     private void updateCanvas() {
-        bg.update();
+        if (helicopter.getPlaying()) {
+            bg.update();
+            helicopter.update();
+        }
     }
 
     protected void drawCanvas(Canvas canvas) {
         bg.draw(canvas);
+        helicopter.draw(canvas);
     }
 
     public void run() {
@@ -85,7 +93,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                     }
                 }
 
-                Log.d("Sleep Time", String.valueOf(sleepTime));
+//                Log.d("Sleep Time", String.valueOf(sleepTime));
                 //ADD THIS IF WE ARE DOING LOTS OF WORK
                 //If sleeptime is greater than a frame length, skip a number of frames
                 while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
@@ -95,12 +103,16 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                     // add frame period to check if in next frame
                     sleepTime += FRAME_PERIOD;
                     framesSkipped++;
-                    Log.d("Skipping", "Skip");
+//                    Log.d("Skipping", "Skip");
                 }
 
                 holder.unlockCanvasAndPost(c);
             }
         }
+    }
+
+    public Helicopter getHelicopter() {
+        return helicopter;
     }
 
     public void pause() {

@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 
+import com.example.p12202749.tapcopter.views.GameSurfaceView;
+
 /**
  * Created by sam on 16/04/2016.
  */
@@ -14,6 +16,7 @@ public class Background {
 
     public Background(Bitmap res, Point screenSize) {
         image = res;
+        dx = GameSurfaceView.MOVE_SPEED;
         this.screenSize = screenSize;
     }
 
@@ -31,9 +34,5 @@ public class Background {
         if (x < 0) {
             canvas.drawBitmap(image, x + screenSize.x, y, null);
         }
-    }
-
-    public void setVector(int dx) {
-        this.dx = dx;
     }
 }
