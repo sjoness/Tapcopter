@@ -1,5 +1,6 @@
 package com.example.p12202749.tapcopter.realm.models;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -22,7 +23,16 @@ public class Score extends RealmObject {
     }
 
     public String getDate() {
-        return date;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+
+        try {
+            Date dateObj = format.parse(date);
+            return new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(dateObj);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "N/A";
     }
 
     public void setDate(Date date) {

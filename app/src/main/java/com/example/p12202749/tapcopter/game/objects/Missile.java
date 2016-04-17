@@ -11,20 +11,17 @@ import java.util.Random;
  * Created by sam on 16/04/2016.
  */
 public class Missile extends Entity {
-    private int score;
     private int speed;
     private Random rand = new Random();
     private Animation animation = new Animation();
-    private Bitmap spritesheet;
 
     private final static int NUM_FRAMES = 13;
 
-    public Missile(Bitmap res, int x, int y, int w, int h, int s) {
+    public Missile(Bitmap spritesheet, int x, int y, int w, int h, int score) {
         super.x = x;
         super.y = y;
         width = w;
         height = h;
-        score = s;
 
         // As the score increases (the player is doing well) the speed of the missile increases.
         // This makes the game increasingly difficult.
@@ -34,8 +31,6 @@ public class Missile extends Entity {
         if (speed > 40) speed = 40;
 
         Bitmap[] image = new Bitmap[NUM_FRAMES];
-
-        spritesheet = res;
 
         for (int i = 0; i < image.length; i++) {
             image[i] = Bitmap.createBitmap(spritesheet, 0, i * height, width, height);

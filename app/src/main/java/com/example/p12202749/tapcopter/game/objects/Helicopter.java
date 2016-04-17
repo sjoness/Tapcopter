@@ -3,7 +3,6 @@ package com.example.p12202749.tapcopter.game.objects;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
 
 import com.example.p12202749.tapcopter.realm.models.Settings;
 import com.example.p12202749.tapcopter.utils.Animation;
@@ -15,7 +14,6 @@ import io.realm.Realm;
  * Created by sam on 16/04/2016.
  */
 public class Helicopter extends Entity {
-    private Point screenSize;
     private Bitmap spritesheet;
     private int score;
     private boolean up;
@@ -33,7 +31,6 @@ public class Helicopter extends Entity {
         score = 0;
         height = h;
         width = w;
-        this.screenSize = screenSize;
 
         Bitmap[] image = new Bitmap[NUM_FRAMES];
         spritesheet = res;
@@ -46,8 +43,7 @@ public class Helicopter extends Entity {
         animation.setDelay(10);
         startTime = System.nanoTime();
 
-        Realm realm = Realm.getDefaultInstance();
-        heliSpeed = realm.where(Settings.class).findFirst().getSpeed();
+        heliSpeed = Realm.getDefaultInstance().where(Settings.class).findFirst().getSpeed();
     }
 
     public void setUp(boolean b) {

@@ -6,6 +6,8 @@
     <string name="main_menu_settings_button_title">Settings</string>
 
     <string name="scoreboard_activity_title">Scoreboard</string>
+    <string name="scoreboard_current_high_score_label">CURRENT HIGH SCORE</string>
+    <string name="scoreboard_previous_high_score_label">Previous High Scores</string>
     <string name="scoreboard_current_best_score_value">%1$d</string>
     <string name="scoreboard_current_best_score_date">%1$s</string>
     <string name="scoreboard_previous_best_score_value_date">%1$d - %2$s</string>

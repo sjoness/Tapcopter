@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -62,7 +61,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private int best;
     private boolean newGameCreated;
     private int difficulty;
-
 
     public GameSurfaceView(Context context, Point screenS) {
         //Place items in here for the constructor
@@ -277,6 +275,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             score.setValue(best);
             score.setDate(new Date());
             realm.commitTransaction();
+            realm.close();
         }
 
         disappear = false;
