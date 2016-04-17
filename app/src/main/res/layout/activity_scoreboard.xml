@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.p12202749.tapcopter.activities.ScoreboardActivity"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <!--<ListView-->
+    <!--android:id="@+id/list_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
+
+    <LinearLayout
+        android:id="@+id/current_high_score_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CURRENT HIGH SCORE"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/current_high_score_value_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scoreboard_current_best_score_value"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/current_high_score_date_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scoreboard_current_best_score_date"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/current_high_score_layout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Previous High Scores"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/previous_score_one_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0 - N/A"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/previous_score_two_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0 - N/A"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+</RelativeLayout>

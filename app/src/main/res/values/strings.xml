@@ -2,7 +2,13 @@
     <string name="app_name">Tapcopter</string>
     <string name="main_menu_image_view_content_description">Main menu background image.</string>
     <string name="main_menu_play_button_title">Play!</string>
+    <string name="main_menu_scoreboard_button_title">Scoreboard</string>
     <string name="main_menu_settings_button_title">Settings</string>
+
+    <string name="scoreboard_activity_title">Scoreboard</string>
+    <string name="scoreboard_current_best_score_value">%1$d</string>
+    <string name="scoreboard_current_best_score_date">%1$s</string>
+    <string name="scoreboard_previous_best_score_value_date">%1$d - %2$s</string>
 
     <string name="settings_activity_title">Settings</string>
     <string name="settings_helicopter_speed_seekbar_title">Helicopter speed: %1$d</string>

@@ -21,7 +21,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/settings_activity_title"/>
+            android:label="@string/settings_activity_title" />
+        <activity
+            android:name=".activities.ScoreboardActivity"
+            android:label="@string/scoreboard_activity_title" />
     </application>
 
 </manifest>

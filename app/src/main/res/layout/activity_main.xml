@@ -26,6 +26,12 @@
             android:text="@string/main_menu_play_button_title" />
 
         <Button
+            android:id="@+id/scoreboard_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_menu_scoreboard_button_title" />
+
+        <Button
             android:id="@+id/settings_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
