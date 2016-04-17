@@ -2,4 +2,12 @@
     <string name="app_name">Tapcopter</string>
     <string name="main_menu_image_view_content_description">Main menu background image.</string>
     <string name="main_menu_play_button_title">Play!</string>
+    <string name="main_menu_settings_button_title">Settings</string>
+
+    <string name="settings_activity_title">Settings</string>
+    <string name="settings_helicopter_speed_seekbar_title">Helicopter speed: %1$d</string>
+    <string name="settings_missle_speed_seekbar_title">Missile frequency: %1$d</string>
+    <string name="settings_disclaimer">Any changes will persist automatically</string>
+    <string name="settings_reset_settings_button_title">Reset game settings</string>
+    <string name="settings_reset_score_button_title">Reset best score</string>
 </resources>
