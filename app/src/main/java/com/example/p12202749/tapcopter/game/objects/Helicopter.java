@@ -3,30 +3,35 @@ package com.example.p12202749.tapcopter.game.objects;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.example.p12202749.tapcopter.utils.Animation;
+import com.example.p12202749.tapcopter.utils.Collision;
 
 /**
  * Created by sam on 16/04/2016.
  */
 public class Helicopter extends Entity {
+    private Point screenSize;
     private Bitmap spritesheet;
     private int score;
-    private double acceleration;
     private boolean up;
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
 
-    public Helicopter(Bitmap res, int w, int h, int numFrames, Point screenSize) {
+    private final static int NUM_FRAMES = 3;
+
+    public Helicopter(Bitmap res, int w, int h, Point screenSize) {
         x = 100;
         y = screenSize.x / 2;
         dy = 0;
         score = 0;
         height = h;
         width = w;
+        this.screenSize = screenSize;
 
-        Bitmap[] image = new Bitmap[numFrames];
+        Bitmap[] image = new Bitmap[NUM_FRAMES];
         spritesheet = res;
 
         for (int i = 0; i < image.length; i++) {
@@ -36,7 +41,6 @@ public class Helicopter extends Entity {
         animation.setFrames(image);
         animation.setDelay(10);
         startTime = System.nanoTime();
-
     }
 
     public void setUp(boolean b) {
@@ -54,9 +58,11 @@ public class Helicopter extends Entity {
         animation.update();
 
         if (up) {
-            dy = (int) (acceleration -= 1.1);
+            if (!Collision.withTop(this)) {
+                dy -= 1;
+            }
         } else {
-            dy = (int) (acceleration += 1.1);
+            dy += 1;
         }
 
         if (dy > 14) dy = 14;
@@ -82,8 +88,8 @@ public class Helicopter extends Entity {
         playing = b;
     }
 
-    public void resetAccelaration() {
-        acceleration = 0;
+    public void resetDY() {
+        dy = 0;
     }
 
     public void resetScore() {

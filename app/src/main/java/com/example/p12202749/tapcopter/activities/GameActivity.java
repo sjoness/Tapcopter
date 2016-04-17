@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.p12202749.tapcopter.views.GameSurfaceView;
-import com.example.p12202749.tapcopter.views.Movement;
+import com.example.p12202749.tapcopter.utils.Movement;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -51,9 +51,15 @@ public class GameActivity extends AppCompatActivity {
         switch (eventaction) {
             case MotionEvent.ACTION_DOWN:
                 // finger touches the screen
-                if (!surfaceView.getHelicopter().getPlaying()) {
+                if (!surfaceView.getHelicopter().getPlaying() && surfaceView.isNewGameCreated() && surfaceView.isReset()) {
                     surfaceView.getHelicopter().setPlaying(true);
+                    Movement.moveY(surfaceView.getHelicopter(), true);
                 } else {
+                    if (!surfaceView.isStarted()) {
+                        surfaceView.setStarted(true);
+                    }
+
+                    surfaceView.setReset(false);
                     Movement.moveY(surfaceView.getHelicopter(), true);
                 }
 

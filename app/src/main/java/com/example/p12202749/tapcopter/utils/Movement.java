@@ -1,4 +1,4 @@
-package com.example.p12202749.tapcopter.views;
+package com.example.p12202749.tapcopter.utils;
 
 import com.example.p12202749.tapcopter.game.objects.Helicopter;
 
