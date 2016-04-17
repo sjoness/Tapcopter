@@ -14,11 +14,18 @@ import com.example.p12202749.tapcopter.R;
 import com.example.p12202749.tapcopter.game.objects.Explosion;
 import com.example.p12202749.tapcopter.game.objects.Helicopter;
 import com.example.p12202749.tapcopter.game.objects.Missile;
+import com.example.p12202749.tapcopter.realm.models.Score;
 import com.example.p12202749.tapcopter.utils.Background;
 import com.example.p12202749.tapcopter.utils.Collision;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
+
+import io.realm.Realm;
+import io.realm.Sort;
 
 /**
  * Created by sam on 16/04/2016.
@@ -67,6 +74,9 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         helicopter = new Helicopter(BitmapFactory.decodeResource(getResources(), R.drawable.helicopter), 66, 25, screenSize);
         missiles = new ArrayList<>();
         missileStartTime = System.nanoTime();
+
+        // Get the previous best score from the database
+        best = Realm.getDefaultInstance().where(Score.class).findAllSorted("date", Sort.DESCENDING).get(0).getValue();
     }
 
     private void updateCanvas() {
@@ -253,6 +263,13 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     public void newGame() {
         if (helicopter.getScore() > best) {
             best = helicopter.getScore() * 3;
+
+            Realm realm =  Realm.getDefaultInstance();
+            realm.beginTransaction();
+            Score score = realm.createObject(Score.class);
+            score.setValue(best);
+            score.setDate(new Date());
+            realm.commitTransaction();
         }
 
         dissapear = false;
