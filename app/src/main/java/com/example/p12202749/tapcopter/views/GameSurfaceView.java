@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -15,13 +16,12 @@ import com.example.p12202749.tapcopter.game.objects.Explosion;
 import com.example.p12202749.tapcopter.game.objects.Helicopter;
 import com.example.p12202749.tapcopter.game.objects.Missile;
 import com.example.p12202749.tapcopter.realm.models.Score;
+import com.example.p12202749.tapcopter.realm.models.Settings;
 import com.example.p12202749.tapcopter.utils.Background;
 import com.example.p12202749.tapcopter.utils.Collision;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 
 import io.realm.Realm;
@@ -57,10 +57,11 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private Explosion explosion;
     private long startReset;
     private boolean reset;
-    private boolean dissapear;
+    private boolean disappear;
     private boolean started;
     private int best;
     private boolean newGameCreated;
+    private int difficulty;
 
 
     public GameSurfaceView(Context context, Point screenS) {
@@ -75,8 +76,14 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         missiles = new ArrayList<>();
         missileStartTime = System.nanoTime();
 
-        // Get the previous best score from the database
-        best = Realm.getDefaultInstance().where(Score.class).findAllSorted("date", Sort.DESCENDING).get(0).getValue();
+        try {
+            // Get the previous best score from the database
+            best = Realm.getDefaultInstance().where(Score.class).findAllSorted("date", Sort.DESCENDING).get(0).getValue();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            best = 0;
+        }
+
+        difficulty = Realm.getDefaultInstance().where(Settings.class).findFirst().getDifficulty();
     }
 
     private void updateCanvas() {
@@ -92,7 +99,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             //add missiles on timer
             long missileElapsed = (System.nanoTime() - missileStartTime) / 1000000;
 
-            if (missileElapsed > (2000 - helicopter.getScore() / 4)) {
+            if (missileElapsed > ((2000 / difficulty) - helicopter.getScore() / 4)) {
                 //first missile always goes down the middle
                 if (missiles.size() == 0) {
                     missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.
@@ -130,7 +137,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                 newGameCreated = false;
                 startReset = System.nanoTime();
                 reset = true;
-                dissapear = true;
+                disappear = true;
                 explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.drawable.explosion), helicopter.getX(),
                         helicopter.getY() - 30, 100, 100);
             }
@@ -147,7 +154,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     protected void drawCanvas(Canvas canvas) {
         bg.draw(canvas);
 
-        if (!dissapear) {
+        if (!disappear) {
             helicopter.draw(canvas);
         }
 
@@ -261,10 +268,10 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     }
 
     public void newGame() {
-        if (helicopter.getScore() > best) {
+        if (helicopter.getScore() * 3 > best) {
             best = helicopter.getScore() * 3;
 
-            Realm realm =  Realm.getDefaultInstance();
+            Realm realm = Realm.getDefaultInstance();
             realm.beginTransaction();
             Score score = realm.createObject(Score.class);
             score.setValue(best);
@@ -272,7 +279,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             realm.commitTransaction();
         }
 
-        dissapear = false;
+        disappear = false;
 
         missiles.clear();
 

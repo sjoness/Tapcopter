@@ -5,8 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.Log;
 
+import com.example.p12202749.tapcopter.realm.models.Settings;
 import com.example.p12202749.tapcopter.utils.Animation;
 import com.example.p12202749.tapcopter.utils.Collision;
+
+import io.realm.Realm;
 
 /**
  * Created by sam on 16/04/2016.
@@ -19,6 +22,7 @@ public class Helicopter extends Entity {
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
+    private int heliSpeed;
 
     private final static int NUM_FRAMES = 3;
 
@@ -41,6 +45,9 @@ public class Helicopter extends Entity {
         animation.setFrames(image);
         animation.setDelay(10);
         startTime = System.nanoTime();
+
+        Realm realm = Realm.getDefaultInstance();
+        heliSpeed = realm.where(Settings.class).findFirst().getSpeed();
     }
 
     public void setUp(boolean b) {
@@ -59,7 +66,7 @@ public class Helicopter extends Entity {
 
         if (up) {
             if (!Collision.withTop(this)) {
-                dy -= 1;
+                dy -= heliSpeed;
             }
         } else {
             dy += 1;
