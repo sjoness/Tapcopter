@@ -71,7 +71,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         firstPlay = true;
 
         // Create an instance of the Background class to draw on the canvas
-        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.game_view_bg), screenSize);
+        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.full_background), screenSize);
         helicopter = new Helicopter(BitmapFactory.decodeResource(getResources(), R.drawable.helicopter), 66, 25, screenSize);
         missiles = new ArrayList<>();
         missileStartTime = System.nanoTime();
