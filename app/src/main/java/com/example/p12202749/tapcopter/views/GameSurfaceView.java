@@ -46,8 +46,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     Thread t = null;                                            //Thread for the game logic
 
     private Point screenSize;                                   //Holds the screen size
-    private Paint paint = new Paint();                          //Paint need to be able to draw the blocks
-
     private long beginTime;                                     // the time when the cycle began
     private long timeDiff;                                      // the time it took for the cycle to execute
     private int sleepTime;                                      // ms to sleep
@@ -102,8 +100,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             if (missileElapsed > ((2000 / difficulty) - helicopter.getScore() / 4)) {
                 //first missile always goes down the middle
                 if (missiles.size() == 0) {
-                    missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.
-                            missile), screenSize.x + 10, screenSize.y / 2, 45, 15, helicopter.getScore()));
+                    missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.missile),
+                            screenSize.x + 10, screenSize.y / 2, 45, 15, helicopter.getScore()));
                 } else {
                     missiles.add(new Missile(BitmapFactory.decodeResource(getResources(), R.drawable.missile),
                             screenSize.x + 10, (int) (rand.nextDouble() * (screenSize.y)), 45, 15, helicopter.getScore()));

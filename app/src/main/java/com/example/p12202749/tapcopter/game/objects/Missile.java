@@ -15,6 +15,8 @@ public class Missile extends Entity {
     private Random rand = new Random();
     private Animation animation = new Animation();
 
+    private final static int BASE_SPEED = 7;
+    private final static int MAX_SPEED = 60;
     private final static int NUM_FRAMES = 13;
 
     public Missile(Bitmap spritesheet, int x, int y, int w, int h, int score) {
@@ -25,10 +27,10 @@ public class Missile extends Entity {
 
         // As the score increases (the player is doing well) the speed of the missile increases.
         // This makes the game increasingly difficult.
-        speed = 7 + (int) (rand.nextDouble() * score / 30);
+        speed = BASE_SPEED + (int) (rand.nextDouble() * score / 30);
 
         //cap missile speed
-        if (speed > 40) speed = 40;
+        if (speed > MAX_SPEED) speed = MAX_SPEED;
 
         Bitmap[] image = new Bitmap[NUM_FRAMES];
 
@@ -54,7 +56,9 @@ public class Missile extends Entity {
 
     @Override
     public int getWidth() {
-        //offset slightly for more realistic collision detection
+        // offset slightly for more realistic collision detection,
+        // if the tail of the helicopter collides with the tail of a missile,
+        // the player should not die.
         return width - 10;
     }
 }
