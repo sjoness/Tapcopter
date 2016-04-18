@@ -69,7 +69,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         firstPlay = true;
 
         // Create an instance of the Background class to draw on the canvas
-        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.full_background), screenSize);
+        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.game_bg), screenSize);
         helicopter = new Helicopter(BitmapFactory.decodeResource(getResources(), R.drawable.helicopter), 66, 25, screenSize);
         missiles = new ArrayList<>();
         missileStartTime = System.nanoTime();
@@ -137,7 +137,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                 reset = true;
                 disappear = true;
                 explosion = new Explosion(BitmapFactory.decodeResource(getResources(), R.drawable.explosion), helicopter.getX(),
-                        helicopter.getY() - 30, 100, 100);
+                        helicopter.getY() - 30, 134, 134);
             }
 
             explosion.update();
@@ -294,7 +294,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
 
     public void drawText(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         paint.setTextSize(30);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         canvas.drawText("DISTANCE: " + (helicopter.getScore() * 3), 10, screenSize.y - 10, paint);
@@ -302,6 +302,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
 
         if (!helicopter.getPlaying() && newGameCreated && reset) {
             Paint paint1 = new Paint();
+            paint1.setColor(Color.BLACK);
             paint1.setTextSize(40);
             paint1.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             canvas.drawText("PRESS TO START", screenSize.x / 2 - 50, screenSize.y / 2, paint1);

@@ -15,6 +15,7 @@ public class Background {
     private int x, y, dx;
 
     public Background(Bitmap res, Point screenSize) {
+        y = 0;
         image = res;
         dx = GameSurfaceView.MOVE_SPEED;
         this.screenSize = screenSize;
