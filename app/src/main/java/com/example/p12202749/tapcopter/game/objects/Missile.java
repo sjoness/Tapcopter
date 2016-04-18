@@ -12,8 +12,6 @@ import java.util.Random;
  */
 public class Missile extends Entity {
     private int speed;
-    private Random rand = new Random();
-    private Animation animation = new Animation();
 
     private final static int BASE_SPEED = 7;
     private final static int MAX_SPEED = 60;
@@ -27,7 +25,7 @@ public class Missile extends Entity {
 
         // As the score increases (the player is doing well) the speed of the missile increases.
         // This makes the game increasingly difficult.
-        speed = BASE_SPEED + (int) (rand.nextDouble() * score / 30);
+        speed = BASE_SPEED + (int) (new Random().nextDouble() * score / 30);
 
         //cap missile speed
         if (speed > MAX_SPEED) speed = MAX_SPEED;
