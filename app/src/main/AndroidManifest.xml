@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.p12202749.tapcopter">
 
+    <supports-screens
+        android:anyDensity="true"
+        android:compatibleWidthLimitDp="800"
+        android:largeScreens="false"
+        android:largestWidthLimitDp="940"
+        android:normalScreens="true"
+        android:requiresSmallestWidthDp="240"
+        android:resizeable="true"
+        android:smallScreens="false"
+        android:xlargeScreens="false" />
+
     <application
         android:name=".AppDelegate"
         android:allowBackup="true"
@@ -19,7 +30,7 @@
         <activity
             android:name=".activities.GameActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar.FullScreen"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/settings_activity_title" />
