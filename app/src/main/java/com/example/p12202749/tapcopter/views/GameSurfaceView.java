@@ -60,6 +60,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private boolean started;
     private int best;
     private boolean newGameCreated;
+    private boolean firstPlay;
     private int difficulty;
 
     public GameSurfaceView(Context context, Point screenS) {
@@ -67,6 +68,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         super(context);
         holder = getHolder(); //Used for the screenview
         screenSize = screenS;
+        firstPlay = true;
 
         // Create an instance of the Background class to draw on the canvas
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.game_view_bg), screenSize);
@@ -143,7 +145,10 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             explosion.update();
             long resetElapsed = (System.nanoTime() - startReset) / 1000000;
 
-            if (resetElapsed > 2500 && !newGameCreated) {
+            if (firstPlay && !newGameCreated) {
+                firstPlay = false;
+                newGame();
+            } else if (resetElapsed > 2500 && !newGameCreated) {
                 newGame();
             }
         }
