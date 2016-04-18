@@ -27,7 +27,7 @@ public class Score extends RealmObject {
 
         try {
             Date dateObj = format.parse(date);
-            return new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(dateObj);
+            return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH).format(dateObj);
         } catch (ParseException e) {
             e.printStackTrace();
         }
