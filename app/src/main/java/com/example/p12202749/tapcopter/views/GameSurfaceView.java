@@ -1,5 +1,6 @@
 package com.example.p12202749.tapcopter.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -29,29 +30,27 @@ import io.realm.Sort;
 /**
  * Created by sam on 16/04/2016.
  */
+@SuppressLint("ViewConstructor")
 public class GameSurfaceView extends SurfaceView implements Runnable {
 
     private final static int MAX_FPS = 30;                   // desired fps
     private final static int MAX_FRAME_SKIPS = 5;            // maximum number of frames to be skipped
     private final static int FRAME_PERIOD = 1000 / MAX_FPS;  // the frame period
     public final static int MOVE_SPEED = -5;                 // the speed of the background
+
     private long missileStartTime;
     private Background bg;
-    private final Helicopter helicopter;
+    private Helicopter helicopter;
     private ArrayList<Missile> missiles;
+    private Explosion explosion;
     private Random rand = new Random();
 
-    SurfaceHolder holder;                                       //Surface holder for the canvas
+    private final SurfaceHolder holder;                               //Surface holder for the canvas
     private boolean ok = false;                                 //Boolean to control pause and resume
-    Thread t = null;                                            //Thread for the game logic
+    private Thread t = null;                                    //Thread for the game logic
 
     private Point screenSize;                                   //Holds the screen size
-    private long beginTime;                                     // the time when the cycle began
-    private long timeDiff;                                      // the time it took for the cycle to execute
-    private int sleepTime;                                      // ms to sleep
-    private int framesSkipped;                                  // number of frames being skipped
 
-    private Explosion explosion;
     private long startReset;
     private boolean reset;
     private boolean disappear;
@@ -62,7 +61,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private int difficulty;
 
     public GameSurfaceView(Context context, Point screenS) {
-        //Place items in here for the constructor
         super(context);
         holder = getHolder(); //Used for the screenview
         screenSize = screenS;
@@ -184,17 +182,17 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
 
             Canvas c = holder.lockCanvas(); //Lock canvas, paint canvas, unlock canvas
             synchronized (holder) {
-                beginTime = System.currentTimeMillis();
-                framesSkipped = 0;  // resetting the frames skipped
+                long beginTime = System.currentTimeMillis();
+                int framesSkipped = 0;
                 // update game state
                 this.updateCanvas();
                 // render state to the screen
                 // draws the canvas on the panel
                 this.drawCanvas(c);
                 // calculate how long did the cycle take
-                timeDiff = System.currentTimeMillis() - beginTime;
+                long timeDiff = System.currentTimeMillis() - beginTime;
                 // calculate sleep time
-                sleepTime = (int) (FRAME_PERIOD - timeDiff);
+                int sleepTime = (int) (FRAME_PERIOD - timeDiff);
                 if (sleepTime > 0) {
                     // if sleepTime > 0 put to sleep for short period of time
                     try {
