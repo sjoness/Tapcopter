@@ -2,6 +2,7 @@ package com.example.p12202749.tapcopter.game.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import com.example.p12202749.tapcopter.utils.Animation;
 
@@ -18,8 +19,8 @@ public class Missile extends Entity {
     private final static int NUM_FRAMES = 13;
 
     public Missile(Bitmap spritesheet, int x, int y, int w, int h, int score) {
-        super.x = x;
-        super.y = y;
+        this.x = x;
+        this.y = y;
         width = w;
         height = h;
 
@@ -28,7 +29,9 @@ public class Missile extends Entity {
         speed = BASE_SPEED + (int) (new Random().nextDouble() * score / 30);
 
         //cap missile speed
-        if (speed > MAX_SPEED) speed = MAX_SPEED;
+        if (speed > MAX_SPEED) {
+            speed = MAX_SPEED;
+        }
 
         Bitmap[] image = new Bitmap[NUM_FRAMES];
 
@@ -49,6 +52,7 @@ public class Missile extends Entity {
         try {
             canvas.drawBitmap(animation.getImage(), x, y, null);
         } catch (Exception e) {
+            Log.d("Tapcopter", e.getMessage());
         }
     }
 

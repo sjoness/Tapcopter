@@ -3,6 +3,7 @@ package com.example.p12202749.tapcopter.utils;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.widget.Button;
 
 import com.example.p12202749.tapcopter.views.GameSurfaceView;
 

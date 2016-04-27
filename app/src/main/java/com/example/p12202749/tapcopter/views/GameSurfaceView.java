@@ -4,10 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -19,6 +16,7 @@ import com.example.p12202749.tapcopter.realm.models.Score;
 import com.example.p12202749.tapcopter.realm.models.Settings;
 import com.example.p12202749.tapcopter.utils.Background;
 import com.example.p12202749.tapcopter.utils.Collision;
+import com.example.p12202749.tapcopter.utils.DrawUI;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -167,7 +165,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             explosion.draw(canvas);
         }
 
-        drawText(canvas);
+//        drawText(canvas);
+        DrawUI.drawNewGameText(canvas, helicopter, screenSize, best, newGameCreated, reset);
     }
 
     public void run() {
@@ -219,42 +218,13 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         }
     }
 
-    public Helicopter getHelicopter() {
-        return helicopter;
-    }
-
-    public boolean isNewGameCreated() {
-        return newGameCreated;
-    }
-
-    public boolean isReset() {
-        return reset;
-    }
-
-    public void setReset(boolean reset) {
-        this.reset = reset;
-    }
-
-    public boolean isStarted() {
-        return started;
-    }
-
-    public void setStarted(boolean started) {
-        this.started = started;
-    }
-
     public void pause() {
         ok = false;
-        boolean retry = true;
 
-        while (true) {
-            try {
-                t.join();
-                retry = false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            break;
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         t = null;
@@ -290,24 +260,27 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         newGameCreated = true;
     }
 
-    public void drawText(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(30);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("DISTANCE: " + (helicopter.getScore() * 3), 10, screenSize.y - 10, paint);
-        canvas.drawText("BEST: " + best, screenSize.x - 215, screenSize.y - 10, paint);
+    public Helicopter getHelicopter() {
+        return helicopter;
+    }
 
-        if (!helicopter.getPlaying() && newGameCreated && reset) {
-            Paint paint1 = new Paint();
-            paint1.setColor(Color.BLACK);
-            paint1.setTextSize(40);
-            paint1.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-            canvas.drawText("PRESS TO START", screenSize.x / 2 - 50, screenSize.y / 2, paint1);
+    public boolean isNewGameCreated() {
+        return newGameCreated;
+    }
 
-            paint1.setTextSize(20);
-            canvas.drawText("PRESS AND HOLD TO GO UP", screenSize.x / 2 - 50, screenSize.y / 2 + 20, paint1);
-            canvas.drawText("RELEASE TO GO DOWN", screenSize.x / 2 - 50, screenSize.y / 2 + 40, paint1);
-        }
+    public boolean isReset() {
+        return reset;
+    }
+
+    public void setReset(boolean reset) {
+        this.reset = reset;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 }
