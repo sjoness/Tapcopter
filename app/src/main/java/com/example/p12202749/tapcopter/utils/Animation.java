@@ -18,12 +18,8 @@ public class Animation {
         startTime = System.nanoTime();
     }
 
-    public void setDelay(long d) {
-        delay = d;
-    }
-
-    public void setFrame(int i) {
-        currentFrame = i;
+    public void setDelay(long delay) {
+        this.delay = delay;
     }
 
     public void update() {
@@ -42,10 +38,6 @@ public class Animation {
 
     public Bitmap getImage() {
         return frames[currentFrame];
-    }
-
-    public int getFrame() {
-        return currentFrame;
     }
 
     public boolean playedOnce() {

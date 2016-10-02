@@ -3,6 +3,7 @@ package com.example.p12202749.tapcopter.utils;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.widget.Button;
 
 import com.example.p12202749.tapcopter.views.GameSurfaceView;
 
@@ -15,6 +16,7 @@ public class Background {
     private int x, y, dx;
 
     public Background(Bitmap res, Point screenSize) {
+        y = 0;
         image = res;
         dx = GameSurfaceView.MOVE_SPEED;
         this.screenSize = screenSize;

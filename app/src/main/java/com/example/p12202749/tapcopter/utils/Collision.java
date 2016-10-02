@@ -10,7 +10,7 @@ import com.example.p12202749.tapcopter.game.objects.Entity;
  */
 public class Collision {
     public static boolean checkRectIntersection(Entity a, Entity b) {
-        return Rect.intersects(a.getRectangle(), b.getRectangle());
+        return Rect.intersects(a.getRect(), b.getRect());
     }
 
     public static boolean withTop(Entity a) {
